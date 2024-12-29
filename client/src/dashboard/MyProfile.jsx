@@ -1,9 +1,9 @@
-import { AuthContext } from "@/context/AuthProvider";
-import React, { useContext } from "react";
+import React from "react";
+import { useAuth } from "../context/AuthProvider";
 
 function MyProfile() {
-  const { profile } = useContext(AuthContext);
-  // console.log(profile);
+  const { profile } = useAuth();
+  console.log(profile?.user);
   return (
     <div>
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -14,15 +14,15 @@ function MyProfile() {
               alt="avatar"
               className="w-full h-48 object-cover"
             />
-            {/* <div className="absolute inset-x-0 bottom-0 transform translate-y-1/2">
+            <div className="absolute inset-x-0 bottom-0 transform translate-y-1/2">
               <img
                 src={profile?.user?.photo?.url}
                 alt="avatar"
                 className="w-24 h-24 rounded-full mx-auto border-4 border-gray-700"
               />
-            </div> */}
+            </div>
           </div>
-          <div className="px-6 py-8 mt-2">
+          <div className="px-6 py-10 mt-2">
             <h2 className="text-center text-2xl font-semibold text-gray-800">
               {profile?.user?.name}
             </h2>

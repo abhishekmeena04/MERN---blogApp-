@@ -8,6 +8,9 @@ import { v2 as cloudinary } from "cloudinary";
 
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import userRoute from "./routes/user.route.js";
+import blogRoute from "./routes/blog.route.js";
+
 
 dotenv.config();
 
@@ -27,17 +30,18 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 app.use(cookieParser());
 
-import userRoutes from "./routes/userRoute.js";
-import blogRoutes from "./routes/blogRoute.js";
 
-app.use("/api/users", userRoutes);
-app.use("/api/blogs", blogRoutes);
+// defining routes
+app.use("/api/users", userRoute);
+app.use("/api/blogs", blogRoute);
 
 // image upload - cloudinary
+// Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
@@ -48,4 +52,5 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`server is listening at ${PORT}`);
+
 });

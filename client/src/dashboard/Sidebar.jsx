@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthProvider";
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CiMenuBurger } from "react-icons/ci";
@@ -7,8 +7,7 @@ import { BiSolidLeftArrowAlt } from "react-icons/bi";
 import toast from "react-hot-toast";
 
 function Sidebar({ setComponent }) {
-  const { profile, setIsAuthenticated } = useContext(AuthContext);
-  // console.log(profile?.user);
+  const { profile, setIsAuthenticated } = useAuth();
   const navigateTo = useNavigate();
 
   const [show, setShow] = useState(false);
@@ -16,6 +15,7 @@ function Sidebar({ setComponent }) {
   const handleComponents = (value) => {
     setComponent(value);
   };
+
   const gotoHome = () => {
     navigateTo("/");
   };
@@ -23,12 +23,11 @@ function Sidebar({ setComponent }) {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.get(
-        "http://localhost:8080/api/users/logout",
-        { withCredentials: true }
-      );
+      const { data } = await axios.get("http://localhost:8000/api/users/logout", {
+        withCredentials: true,
+      });
       toast.success(data.message);
-      localStorage.removeItem("jwt"); // deleting token in localStorage so that if user logged out it will goes to login page
+      localStorage.removeItem("jwt"); // Delete token in localStorage so user is redirected to login page
       setIsAuthenticated(false);
       navigateTo("/login");
     } catch (error) {
@@ -39,31 +38,39 @@ function Sidebar({ setComponent }) {
 
   return (
     <>
+      {/* Mobile Hamburger Menu */}
       <div
         className="sm:hidden fixed top-4 left-4 z-50"
         onClick={() => setShow(!show)}
       >
-        <CiMenuBurger className="text-2xl" />
+        <CiMenuBurger className="text-2xl cursor-pointer" />
       </div>
+
+      {/* Sidebar */}
       <div
         className={`w-64 h-full shadow-lg fixed top-0 left-0 bg-gray-50 transition-transform duration-300 transform sm:translate-x-0 ${
           show ? "translate-x-0" : "-translate-x-full"
         }`}
       >
+        {/* Close Button for Mobile View */}
         <div
           className="sm:hidden absolute top-4 right-4 text-xl cursor-pointer"
           onClick={() => setShow(!show)}
         >
           <BiSolidLeftArrowAlt className="text-2xl" />
         </div>
-        <div className="text-center">
+
+        {/* Profile Section */}
+        <div className="text-center py-4">
           <img
             className="w-24 h-24 rounded-full mx-auto mb-2"
-            src={profile?.user?.photo?.url}
-            alt=""
+            src={profile?.user?.photo?.url || "/default-profile.png"}
+            alt="Profile"
           />
           <p className="text-lg font-semibold">{profile?.user?.name}</p>
         </div>
+
+        {/* Sidebar Menu Items */}
         <ul className="space-y-6 mx-4">
           <button
             onClick={() => handleComponents("My Blogs")}

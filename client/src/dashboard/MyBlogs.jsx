@@ -9,10 +9,10 @@ function MyBlogs() {
     const fetchMyBlogs = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/blogs/my-blog",
+          "http://localhost:8000/api/blogs/my-blog",
           { withCredentials: true }
         );
-        // console.log(data);
+        console.log(data);
         setMyBlogs(data);
       } catch (error) {
         console.log(error);
@@ -23,7 +23,7 @@ function MyBlogs() {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`http://localhost:8080/api/blogs/delete/${id}`, {
+      .delete(`http://localhost:8000/api/blogs/delete/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -36,12 +36,11 @@ function MyBlogs() {
   };
   return (
     <div>
-      <div className="container mx-auto px-20 my-12 p-4">
+      <div className="container mx-auto lg:mx-48 my-12 p-4">
         <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 md:ml-20">
           {myBlogs && myBlogs.length > 0 ? (
             myBlogs.map((element) => (
-              <Link
-                to={`/blog/${element._id}`}
+              <div
                 className="bg-white shadow-lg rounded-lg overflow-hidden"
                 key={element._id}
               >
@@ -74,7 +73,7 @@ function MyBlogs() {
                     </button>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))
           ) : (
             <p className="text-center text-gray-500">

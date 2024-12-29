@@ -28,8 +28,7 @@ function UpdateBlog() {
     const fetchBlog = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/api/blogs/single-blog/${id}`,
-
+          `http://localhost:8000/api/blogs/single-blog/${id}`,
           {
             withCredentials: true,
             headers: {
@@ -42,8 +41,7 @@ function UpdateBlog() {
         setAbout(data?.about);
         setBlogImage(data?.blogImage.url);
       } catch (error) {
-        console.log(error);
-        toast.error("Please fill the required fields");
+        toast.error("Error fetching blog data!");
       }
     };
     fetchBlog();
@@ -55,11 +53,11 @@ function UpdateBlog() {
     formData.append("title", title);
     formData.append("category", category);
     formData.append("about", about);
-
     formData.append("blogImage", blogImage);
+
     try {
       const { data } = await axios.put(
-        `http://localhost:8080/api/blogs/update/${id}`,
+        `http://localhost:8000/api/blogs/update/${id}`,
         formData,
         {
           withCredentials: true,
@@ -68,47 +66,55 @@ function UpdateBlog() {
           },
         }
       );
-      console.log(data);
-      toast.success(data.message || "Blog updated successfully");
+      toast.success(data.message || "Blog updated successfully!");
       navigateTo("/");
     } catch (error) {
-      console.log(error);
       toast.error(
-        error.response.data.message || "Please fill the required fields"
+        error.response?.data?.message || "An error occurred. Please try again."
       );
     }
   };
 
   return (
-    <div>
-      <div className="container mx-auto my-12 p-4">
-        <section className="max-w-2xl mx-auto">
-          <h3 className="text-2xl font-bold mb-6">UPDATE BLOG</h3>
-          <form>
-            <div className="mb-4">
-              <label className="block mb-2 font-semibold">Category</label>
-              <select
-                className="w-full p-2 border rounded-md"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option value="">Select Category</option>
-                <option value="Devotion">Devotion</option>
-                <option value="Sports">Sports</option>
-                <option value="Coding">Coding</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Business">Business</option>
-              </select>
-            </div>
+    <div className="container mx-auto my-12 p-6">
+      <section className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg transform transition-all duration-500 ease-in-out hover:scale-105">
+        <h3 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+          Update Your Blog
+        </h3>
+        <form onSubmit={handleUpdate} className="space-y-6">
+          <div className="mb-4">
+            <label className="block mb-2 text-lg font-semibold text-gray-700">
+              Category
+            </label>
+            <select
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select Category</option>
+              <option value="Devotion">Devotion</option>
+              <option value="Sports">Sports</option>
+              <option value="Coding">Coding</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Business">Business</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
             <input
               type="text"
-              placeholder="BLOG MAIN TITLE"
-              className="w-full p-2 mb-4 border rounded-md"
+              placeholder="Blog Main Title"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <div className="mb-4">
-              <label className="block mb-2 font-semibold">BLOG IMAGE</label>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2 text-lg font-semibold text-gray-700">
+              Blog Image
+            </label>
+            <div className="relative">
               <img
                 src={
                   blogImagePreview
@@ -117,32 +123,35 @@ function UpdateBlog() {
                     ? blogImage
                     : "/imgPL.webp"
                 }
-                alt="Blog Main"
-                className="w-full h-48 object-cover mb-4 rounded-md"
+                alt="Blog"
+                className="w-full h-48 object-cover mb-4 rounded-md transition-transform transform hover:scale-105"
               />
               <input
                 type="file"
-                className="w-full p-2 border rounded-md"
+                className="w-full p-3 border border-gray-300 rounded-md absolute bottom-0 left-0 opacity-0 cursor-pointer"
                 onChange={changePhotoHandler}
               />
             </div>
+          </div>
+
+          <div className="mb-4">
             <textarea
               rows="6"
-              className="w-full p-2 mb-4 border rounded-md"
-              placeholder="Something about your blog atleast 200 characters!"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              placeholder="Something about your blog (at least 200 characters)"
               value={about}
               onChange={(e) => setAbout(e.target.value)}
-            />
+            ></textarea>
+          </div>
 
-            <button
-              className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-              onClick={handleUpdate}
-            >
-              UPDATE
-            </button>
-          </form>
-        </section>
-      </div>
+          <button
+            type="submit"
+            className="w-full p-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+          >
+            Update Blog
+          </button>
+        </form>
+      </section>
     </div>
   );
 }
