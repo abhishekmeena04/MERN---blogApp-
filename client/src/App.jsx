@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../src/components/Navbar";
+// import Navbar from "../src/components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div>
-      {!hideNavbarFooter && <Navbar />}
+      {/* {!hideNavbarFooter && <Navbar />} */}
       <Routes>
         <Route
           exact
