@@ -1,0 +1,1 @@
+export const BACKEND_URL = "https://mern-blogapp-gve7.onrender.com"
