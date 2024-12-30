@@ -1,19 +1,19 @@
 import React from "react";
-// import Navbar from "../src/components/Navbar";
-import Home from "./components/Home";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar.jsx";
+import Home from "./components/Home.jsx";
+import Footer from "./components/Footer.jsx";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import Blogs from "./pages/Blogs";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Creators from "./pages/Creators";
+import Blogs from "./pages/Blogs.jsx";
+import About from "./pages/About.jsx";
+import Contact from "./pages/Contact.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Creators from "./pages/Creators.jsx";
 import { useAuth } from "./context/AuthProvider";
 import { Toaster } from "react-hot-toast";
-import UpdateBlog from "./dashboard/UpdateBlog";
-import Detail from "./pages/Detail";
+import UpdateBlog from "./dashboard/UpdateBlog.jsx";
+import Detail from "./pages/Detail.jsx";
 // import NotFound from "./pages/NotFound";
 function App() {
   const location = useLocation();
@@ -22,12 +22,12 @@ function App() {
   );
   const { blogs, isAuthenticated } = useAuth();
   let token = localStorage.getItem("jwt"); // Retrieve the token directly from the localStorage to maininting the routes protect (Go to login.jsx)
-  // console.log(blogs);
+  console.log(blogs);
   console.log(isAuthenticated); // it is not using because every page refresh it was redirected to /login
 
   return (
     <div>
-      {/* {!hideNavbarFooter && <Navbar />} */}
+      {!hideNavbarFooter && <Navbar />}
       <Routes>
         <Route
           exact
