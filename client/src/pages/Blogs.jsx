@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 
-function Blogs() {
+const Blogs = () => {
   const { blogs } = useAuth();
 
   console.log(blogs);

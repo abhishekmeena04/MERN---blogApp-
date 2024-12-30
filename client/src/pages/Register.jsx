@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 
-function Register() {
+const Register = () => {
   const { setIsAuthenticated, setProfile } = useAuth();
 
   const navigateTo = useNavigate();

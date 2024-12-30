@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
-function Detail() {
+const Detail = () => {
   const { id } = useParams();
   const [blogs, setblogs] = useState({});
   console.log(blogs);

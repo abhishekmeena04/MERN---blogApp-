@@ -6,7 +6,7 @@ import { CiMenuBurger } from "react-icons/ci";
 import { BiSolidLeftArrowAlt } from "react-icons/bi";
 import toast from "react-hot-toast";
 
-function Sidebar({ setComponent }) {
+const Sidebar = ({ setComponent }) => {
   const { profile, setIsAuthenticated } = useAuth();
   const navigateTo = useNavigate();
 

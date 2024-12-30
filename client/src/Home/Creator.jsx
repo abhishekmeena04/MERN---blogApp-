@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function Creator() {
+const Creator = () => {
   const [admins, setAdmins] = useState([]);
 
   useEffect(() => {

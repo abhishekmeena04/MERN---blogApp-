@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-function Contact() {
+const Contact = () => {
   const {
     register,
     handleSubmit,

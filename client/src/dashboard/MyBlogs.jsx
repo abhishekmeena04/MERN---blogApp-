@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-function MyBlogs() {
+const MyBlogs = () => {
   const [myBlogs, setMyBlogs] = useState([]);
   useEffect(() => {
     const fetchMyBlogs = async () => {

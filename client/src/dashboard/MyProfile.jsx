@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "../context/AuthProvider";
 
-function MyProfile() {
+const MyProfile = () => {
   const { profile } = useAuth();
   console.log(profile?.user);
   return (
